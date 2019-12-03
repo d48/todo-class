@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="Ryan's Todo App">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Todo App</title>
+  <link href="css/index.css" rel="stylesheet" />
+</head>
+<body>
+  <header>
+  <h1 id="page-title"></h1>
+  </header>
+  <main>
+    <section id="list" role="list">
+      <header>
+        <h2>Lists</h2>
+        
+        <label>Enter new list name</label>
+        <input type="text" id="new-list-field"/>
+        <button id="new-list-button">Create</button>
+      </header>
+      <!-- render list here -->
+
+      </section>
+    <section id="tasks" role="list">
+      <header>
+        <h2>3 <span aria-role="">Grocery</span> Items</h2>
+        
+        <label>Enter new task name</label>
+        <input type="text" id="new-task-field" />
+        <button id="new-task-button">Create</button>
+      </header>
+      <ul>
+        <li><input type="checkbox" /><label>cereal</label></li>
+        <li><input type="checkbox" /><label>bananas</label></li>
+        <li><input type="checkbox" /><label>bread</label></li>
+      </ul>
+    </section>
+  </main>
+  <script type="module" src="js/index.js"></script>
+</body>
+</html>
