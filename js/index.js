@@ -45,12 +45,16 @@ const newListButton = document.querySelector('#new-list-button');
 
 // List Functions
 const renderList = () => {
+  // listInstance.removeListeners();
   elementListContainer.removeChild(elementListContainer.lastChild);
   elementListContainer.appendChild(listInstance.render());
+  // createListeners();
+  listInstance.createEventListeners();
 };
 
 const createNewList = (event) => {
   listInstance.addList(newListField.value);
+  newListField.value = '';
   renderList();
 };
 
