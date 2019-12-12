@@ -1,6 +1,6 @@
 import ListItem from './ListItem.js';
 
-class List {
+class ListContainer {
   constructor() {
     this.lists = [];
     this.listSelected = null;
@@ -26,7 +26,8 @@ class List {
   createEventListeners() {
     document.querySelectorAll('#list input[type="radio"]').forEach(item => {
       item.addEventListener('click', event => {
-        console.log('clicky', event.target.dataset.value);
+        console.log('name', event.target.dataset.name);
+        console.log('id', event.target.dataset.id);
       });
     });
   }
@@ -34,7 +35,7 @@ class List {
   render() {
     const buildHTML = (item) => {
       return `
-<li><input type="radio" id="list-${item.getId()}" name="list" data-value="${item.getName()}" /><label>${item.getName()}</label></li>`;
+<li><input type="radio" id="list-${item.getId()}" name="list" data-name="${item.getName()}" data-id="${item.getId()}" /><label>${item.getName()}</label></li>`;
     };
 
     let listElement = document.createElement('ul');
@@ -50,4 +51,4 @@ class List {
   }
 }
 
-export default List;
+export default ListContainer;

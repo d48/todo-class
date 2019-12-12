@@ -1,6 +1,6 @@
 /* ---------------------- classes ----------------------- */
 import Title from './Title.js';
-import List from './List.js';
+import ListContainer from './ListContainer.js';
 
 /*
 
@@ -29,7 +29,7 @@ class Tasks {
 
 /* ---------------------- Object instances ----------------------- */
 
-let listInstance = new List();
+let listInstance = new ListContainer();
 let titleInstance = new Title("Ryan's Todo App", listInstance);
 
 /* ---------------------- page elements ----------------------- */
