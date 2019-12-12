@@ -1,4 +1,4 @@
-import ListItem from './ListItem.js';
+import List from './List.js';
 
 class ListContainer {
   constructor() {
@@ -15,7 +15,7 @@ class ListContainer {
   }
 
   addList(name) {
-    const listItem = new ListItem(name);
+    const listItem = new List(name);
     this.lists.push(listItem);
   }
 

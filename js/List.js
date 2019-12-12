@@ -1,4 +1,4 @@
-class ListItem {
+class List {
   constructor(name) {
     this.name = name;
     this.selected = true;
@@ -14,11 +14,11 @@ class ListItem {
     return this.name;
   }
 
-  addTask(task) {
+  addItem(task) {
   }
 
-  removeTask(id) {
+  removeItem(id) {
   }
 }
 
-export default ListItem;
+export default List;
