@@ -2,7 +2,10 @@ class Title {
   constructor(title, list) {
     this.title = title;
     this.list = list;
-    this.numberOfLists = this.list.getListsLength();
+  }
+
+  get numberOfLists() {
+    return this.list.getListsLength();
   }
 
   displayTitle() {

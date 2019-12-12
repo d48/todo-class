@@ -35,13 +35,15 @@ let titleInstance = new Title("Ryan's Todo App", listInstance);
 /* ---------------------- page elements ----------------------- */
 
 const elementPageTitle = document.querySelector('#page-title');
-elementPageTitle.textContent = titleInstance.displayTitle()
 const elementListContainer = document.querySelector('#list');
 
-elementListContainer.appendChild(listInstance.render());
 
 const newListField = document.querySelector('#new-list-field');
 const newListButton = document.querySelector('#new-list-button');
+
+const displayTitle = () => {
+  elementPageTitle.textContent = titleInstance.displayTitle()
+}
 
 // List Functions
 const renderList = () => {
@@ -50,6 +52,7 @@ const renderList = () => {
   elementListContainer.appendChild(listInstance.render());
   // createListeners();
   listInstance.createEventListeners();
+  displayTitle();
 };
 
 const createNewList = (event) => {
@@ -64,7 +67,13 @@ newListField.addEventListener('keyup', event => {
     createNewList();
   }
 });
+
 newListButton.addEventListener('click', createNewList);
+
+// Renders
+displayTitle();
+elementListContainer.appendChild(listInstance.render());
+
 
 
 
