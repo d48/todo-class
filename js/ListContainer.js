@@ -20,14 +20,22 @@ class ListContainer {
   }
 
   removeList(id) {
-
+    this.lists = this.lists.filter(list => list.getId() !== id);
   }
 
   createEventListeners() {
-    document.querySelectorAll('#list input[type="radio"]').forEach(item => {
+    var self = this;
+    document.querySelectorAll('[data-li="list-row"] input[type="radio"]').forEach(item => {
       item.addEventListener('click', event => {
         console.log('name', event.target.dataset.name);
         console.log('id', event.target.dataset.id);
+      });
+    });
+
+    document.querySelectorAll('[data-li="list-row"] button').forEach(item => {
+      item.addEventListener('click', event => {
+        console.log('id', event.target.dataset.id);
+        self.removeList(event.target.dataset.id);
       });
     });
   }
@@ -35,7 +43,7 @@ class ListContainer {
   render() {
     const buildHTML = (item) => {
       return `
-<li><input type="radio" id="list-${item.getId()}" name="list" data-name="${item.getName()}" data-id="${item.getId()}" /><label>${item.getName()}</label></li>`;
+<li data-li="list-row"><input type="radio" id="list-${item.getId()}" name="list" data-name="${item.getName()}" data-id="${item.getId()}" /><label>${item.getName()}</label></li>`
     };
 
     let listElement = document.createElement('ul');

@@ -3,7 +3,7 @@ class List {
     this.name = name;
     this.selected = true;
     this.id = new Date().toISOString();
-    this.tasks = [];
+    this.items= [];
   }
 
   getId() {
@@ -14,7 +14,7 @@ class List {
     return this.name;
   }
 
-  addItem(task) {
+  addItem(item) {
   }
 
   removeItem(id) {

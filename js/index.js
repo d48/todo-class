@@ -2,19 +2,17 @@
 import Title from './Title.js';
 import ListContainer from './ListContainer.js';
 
+window.ListContainer = ListContainer;
+
 /*
 
-tasks = [
-  { id: '', name: '', completed: false },
-  { id: '', name: '', completed: false },
-  { id: '', name: '', completed: false },
-  { id: '', name: '', completed: false },
+listItems = [
+  { name: '', id: 1234 },
+  { name: '', id: 5678 }
 ]
 
-addTask({name: ''})
-removeTask(id)
-getNumberOfTasks()
-displayTitle()
+addListItem(listItem)
+removeListItem(id)
 
 */
 
@@ -29,8 +27,8 @@ class Tasks {
 
 /* ---------------------- Object instances ----------------------- */
 
-let listInstance = new ListContainer();
-let titleInstance = new Title("Ryan's Todo App", listInstance);
+var listInstance = window.listInstance = new ListContainer();
+var titleInstance = window.titleInstance = new Title("Ryan's Todo App", listInstance);
 
 /* ---------------------- page elements ----------------------- */
 
@@ -60,6 +58,7 @@ const createNewList = (event) => {
   newListField.value = '';
   renderList();
 };
+
 
 // Event Listeners
 newListField.addEventListener('keyup', event => {
