@@ -1,9 +1,31 @@
 import List from './List.js';
 
 class ListContainer {
-  constructor() {
+  constructor({element}) {
+    this.id = 'todo-app-lists'
+    this.element = element;
     this.lists = [];
+
+    // check storage
+    const listsFromStorage = this.checkStorage();
+
+    if (listsFromStorage) {
+      listsFromStorage.forEach(item => {
+        this.addList(item);
+      });
+    }
+
     this.listSelected = null;
+  }
+
+  checkStorage() {
+    let appStorage = [];
+
+    // storage read
+    if (!this.lists.length) {
+      appStorage = localStorage.getItem(this.id);
+      return appStorage && JSON.parse(appStorage) || [];
+    }
   }
 
   getLists() {
@@ -14,8 +36,20 @@ class ListContainer {
     return this.lists.length;
   }
 
-  addList(name) {
-    const listItem = new List(name);
+  addList(obj) {
+    const listItem = new List(obj);
+    let appStorage = [];
+
+    // storage read
+    if (this.lists.length) {
+      appStorage = localStorage.getItem(this.id);
+      appStorage = JSON.parse(appStorage);
+    }
+
+    // prep for storage writing
+    appStorage.push(listItem);
+    localStorage.setItem(this.id, JSON.stringify(appStorage));
+
     this.lists.push(listItem);
   }
 

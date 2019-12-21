@@ -1,5 +1,5 @@
 class Title {
-  constructor(title, list) {
+  constructor({title, list}) {
     this.title = title;
     this.list = list;
   }

@@ -2,38 +2,23 @@
 import Title from './Title.js';
 import ListContainer from './ListContainer.js';
 
-window.ListContainer = ListContainer;
-
-/*
-
-listItems = [
-  { name: '', id: 1234 },
-  { name: '', id: 5678 }
-]
-
-addListItem(listItem)
-removeListItem(id)
-
-*/
-
-
-class Tasks {
-  constructor(name) {
-    this.titleName = name;
-    this.tasks = [];
-  }
-}
-
+// APP
 
 /* ---------------------- Object instances ----------------------- */
 
-var listInstance = window.listInstance = new ListContainer();
-var titleInstance = window.titleInstance = new Title("Ryan's Todo App", listInstance);
+const elementListContainer = document.querySelector('#list');
+
+var listInstance = new ListContainer({
+  element: elementListContainer
+});
+var titleInstance = new Title({
+  title: "Ryan's Todo App",
+  list: listInstance
+});
 
 /* ---------------------- page elements ----------------------- */
 
 const elementPageTitle = document.querySelector('#page-title');
-const elementListContainer = document.querySelector('#list');
 
 
 const newListField = document.querySelector('#new-list-field');
@@ -54,7 +39,7 @@ const renderList = () => {
 };
 
 const createNewList = (event) => {
-  listInstance.addList(newListField.value);
+  listInstance.addList({name: newListField.value});
   newListField.value = '';
   renderList();
 };

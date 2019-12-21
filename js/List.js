@@ -1,9 +1,9 @@
 class List {
-  constructor(name) {
+  constructor({name, selected=false, id=new Date().toISOString(), items= []}) {
     this.name = name;
-    this.selected = true;
-    this.id = new Date().toISOString();
-    this.items= [];
+    this.selected = selected;
+    this.id = id;
+    this.items= items;
   }
 
   getId() {
