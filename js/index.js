@@ -7,35 +7,24 @@ import ListContainer from './ListContainer.js';
 /* ---------------------- Object instances ----------------------- */
 
 const elementListContainer = document.querySelector('#list');
+const elementTitle = document.querySelector('#page-title');
 
-var listInstance = new ListContainer({
-  element: elementListContainer
+let titleInstance = new Title({
+  title: "Ryan's Todo App"
 });
-var titleInstance = new Title({
-  title: "Ryan's Todo App",
-  list: listInstance
+let listInstance = new ListContainer({
+  elementContainer: elementListContainer,
+  elementTitle: elementTitle,
+  titleInstance: titleInstance
 });
 
-/* ---------------------- page elements ----------------------- */
-
-const elementPageTitle = document.querySelector('#page-title');
-
-
+// Buttons
 const newListField = document.querySelector('#new-list-field');
 const newListButton = document.querySelector('#new-list-button');
 
-const displayTitle = () => {
-  elementPageTitle.textContent = titleInstance.displayTitle()
-}
-
 // List Functions
 const renderList = () => {
-  // listInstance.removeListeners();
-  elementListContainer.removeChild(elementListContainer.lastChild);
-  elementListContainer.appendChild(listInstance.render());
-  // createListeners();
-  listInstance.createEventListeners();
-  displayTitle();
+  listInstance.renderContainer();
 };
 
 const createNewList = (event) => {
@@ -43,7 +32,6 @@ const createNewList = (event) => {
   newListField.value = '';
   renderList();
 };
-
 
 // Event Listeners
 newListField.addEventListener('keyup', event => {
@@ -55,22 +43,4 @@ newListField.addEventListener('keyup', event => {
 newListButton.addEventListener('click', createNewList);
 
 // Renders
-displayTitle();
-elementListContainer.appendChild(listInstance.render());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+listInstance.renderContainer();

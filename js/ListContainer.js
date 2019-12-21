@@ -1,9 +1,11 @@
 import List from './List.js';
 
 class ListContainer {
-  constructor({element}) {
+  constructor({elementContainer, elementTitle, titleInstance}) {
     this.id = 'todo-app-lists'
-    this.element = element;
+    this.elementContainer = elementContainer;
+    this.elementTitle = elementTitle;
+    this.titleInstance = titleInstance;
     this.lists = [];
 
     // check storage
@@ -90,6 +92,19 @@ class ListContainer {
     listElement.innerHTML = listHTML;
 
     return listElement;
+  }
+
+  renderContainer() {
+    // listInstance.removeListeners();
+    this.elementContainer.removeChild(this.elementContainer.lastChild);
+    this.elementContainer.appendChild(this.render());
+    // createListeners();
+    this.createEventListeners();
+    this.displayTitle()
+  }
+
+  displayTitle() {
+    this.elementTitle.textContent = this.titleInstance.displayTitle(this.getListsLength())
   }
 }
 

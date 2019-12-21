@@ -1,15 +1,10 @@
 class Title {
-  constructor({title, list}) {
+  constructor({title}) {
     this.title = title;
-    this.list = list;
   }
 
-  get numberOfLists() {
-    return this.list.getListsLength();
-  }
-
-  displayTitle() {
-    return `${this.title}: ${this.numberOfLists} lists`;
+  displayTitle(num) {
+    return `${this.title}: ${num} lists`;
   }
 }
 
