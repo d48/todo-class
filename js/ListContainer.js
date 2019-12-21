@@ -3,30 +3,31 @@ import List from './List.js';
 class ListContainer {
   constructor({elementContainer, elementTitle, titleInstance}) {
     this.id = 'todo-app-lists'
+    this.idListSelected = this.id + '-selected';
     this.elementContainer = elementContainer;
     this.elementTitle = elementTitle;
     this.titleInstance = titleInstance;
     this.lists = [];
-
-    // check storage
-    const listsFromStorage = this.checkStorage();
-
-    if (listsFromStorage) {
-      listsFromStorage.forEach(item => {
-        this.addList(item);
-      });
-    }
-
     this.listSelected = null;
+
+    // check storage for any lists to create
+    this.checkStorage();
   }
 
   checkStorage() {
-    let appStorage = [];
-
-    // storage read
     if (!this.lists.length) {
-      appStorage = localStorage.getItem(this.id);
-      return appStorage && JSON.parse(appStorage) || [];
+      let appStorage = localStorage.getItem(this.id);
+
+      if (appStorage) {
+        JSON.parse(appStorage).forEach(item => {
+          this.addList(item);
+        });
+
+        let selectedList = localStorage.getItem(this.idListSelected);
+        if (selectedList) {
+          this.selectList(selectedList);
+        }
+      }
     }
   }
 
@@ -59,19 +60,17 @@ class ListContainer {
     this.lists = this.lists.filter(list => list.getId() !== id);
   }
 
+  selectList(id) {
+    this.listSelected = id;
+    localStorage.setItem(this.idListSelected, id);
+  }
+
   createEventListeners() {
     var self = this;
-    document.querySelectorAll('[data-li="list-row"] input[type="radio"]').forEach(item => {
-      item.addEventListener('click', event => {
-        console.log('name', event.target.dataset.name);
-        console.log('id', event.target.dataset.id);
-      });
-    });
-
-    document.querySelectorAll('[data-li="list-row"] button').forEach(item => {
+    this.elementContainer.querySelectorAll('[data-li="list-row"] input[type="radio"]').forEach(item => {
       item.addEventListener('click', event => {
         console.log('id', event.target.dataset.id);
-        self.removeList(event.target.dataset.id);
+        self.selectList(event.target.dataset.id);
       });
     });
   }
@@ -94,12 +93,19 @@ class ListContainer {
     return listElement;
   }
 
+  clickSelectedList() {
+    if(this.listSelected) {
+      this.elementContainer.querySelectorAll('[data-id="' + this.listSelected + '"]')[0].click();
+    }
+  }
+
   renderContainer() {
     // listInstance.removeListeners();
     this.elementContainer.removeChild(this.elementContainer.lastChild);
     this.elementContainer.appendChild(this.render());
     // createListeners();
     this.createEventListeners();
+    this.clickSelectedList();
     this.displayTitle()
   }
 

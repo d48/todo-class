@@ -23,14 +23,10 @@ const newListField = document.querySelector('#new-list-field');
 const newListButton = document.querySelector('#new-list-button');
 
 // List Functions
-const renderList = () => {
-  listInstance.renderContainer();
-};
-
 const createNewList = (event) => {
   listInstance.addList({name: newListField.value});
   newListField.value = '';
-  renderList();
+  listInstance.renderContainer();
 };
 
 // Event Listeners
