@@ -45,6 +45,10 @@ class ListContainer {
     return this.lists;
   }
 
+  getSelectedList() {
+    return this.getList(this.listSelectedId);
+  }
+
   getListsLength() {
     return this.lists.length;
   }

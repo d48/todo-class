@@ -1,5 +1,5 @@
 class Storage {
-  constructor({ idLists, idListSelected }) {
+  constructor({idLists = '', idListSelected = ''}) {
     this.idLists = idLists;
     this.idListSelected = idListSelected;
   }
@@ -23,6 +23,10 @@ class Storage {
 
   clearSelectedList() {
     localStorage.removeItem(this.idListSelected);
+  }
+
+  setItems(items) {
+    localStorage.setItem(id, JSON.stringify(items));
   }
 }
 

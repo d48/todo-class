@@ -22,8 +22,9 @@ class ListItemContainer {
     }
   }
 
-  addItem(item) {
-    let newItem = new ListItem(item);
+  // todo: need to reference storage. As a singleton? via global?
+  addItem(obj) {
+    let newItem = new ListItem(obj);
     this.items.push(newItem);
     this.storage.setItems(this.id, this.items);
   }
@@ -52,6 +53,7 @@ class ListItemContainer {
   }
 
   renderContainer(list) {
+    this.id = list.getId();
     this.element.className = 'show';
     this.element.removeChild(this.element.lastChild);
     this.element.appendChild(this.render());
