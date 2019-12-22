@@ -4,7 +4,28 @@ import listBuilder from './helpers.js';
 class ListItemContainer {
   constructor({element}) {
     this.element = element;
-    this.items = [new ListItem({name:'banana'}), new ListItem({name:'apple'})];
+    this.items = [];
+
+    // check storage for saved items
+    // this.checkStorage();
+  }
+
+  checkStorage() {
+    const items = this.storage.getItems(this.id);
+
+    if (items) {
+      items.forEeach(item => {
+        this.addItem(item);
+      });
+
+      this.storage.setItems(this.id, this.items);
+    }
+  }
+
+  addItem(item) {
+    let newItem = new ListItem(item);
+    this.items.push(newItem);
+    this.storage.setItems(this.id, this.items);
   }
 
   displayTitle(list) {
