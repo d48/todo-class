@@ -1,4 +1,5 @@
 import List from './List.js';
+import Storage from './Storage.js';
 
 class ListContainer {
   constructor({elementContainer, elementTitle, titleInstance}) {
@@ -9,6 +10,10 @@ class ListContainer {
     this.titleInstance = titleInstance;
     this.lists = [];
     this.listSelectedId = null;
+    this.storage = new Storage({
+      idLists: this.id,
+      idListSelected: this.idListSelected
+    });
 
     // check for any lists to create that has been saved
     this.checkStorage();
@@ -16,14 +21,14 @@ class ListContainer {
 
   checkStorage() {
     if (!this.lists.length) {
-      let appStorage = localStorage.getItem(this.id);
+      let listsFromStorage = this.storage.getLists();
 
-      if (appStorage) {
-        JSON.parse(appStorage).forEach(item => {
+      if (listsFromStorage) {
+        listsFromStorage.forEach(item => {
           this.addList(item);
         });
 
-        let selectedList = localStorage.getItem(this.idListSelected);
+        let selectedList = this.storage.getSelectedList();
         if (selectedList) {
           this.selectList(selectedList);
         }
@@ -42,13 +47,13 @@ class ListContainer {
   addList(obj) {
     const listItem = new List(obj);
     this.lists.push(listItem);
-    localStorage.setItem(this.id, JSON.stringify(this.lists));
+    this.storage.setLists(this.lists);
   }
 
   removeSelectedList() {
     this.lists = this.lists.filter(list => list.getId() !== this.listSelectedId);
-    localStorage.setItem(this.id, JSON.stringify(this.lists));
-    localStorage.removeItem(this.idListSelected);
+    this.storage.setLists(this.lists);
+    this.storage.clearSelectedList();
     this.listSelectedId = null;
 
     this.renderContainer();
@@ -56,7 +61,7 @@ class ListContainer {
 
   selectList(id) {
     this.listSelectedId = id;
-    localStorage.setItem(this.idListSelected, id);
+    this.storage.setSelectedList(id);
   }
 
   createEventListeners() {
