@@ -11,3 +11,20 @@ section, body > header {
     margin-bottom: 10px;
     padding: 10px;
 }
+
+#items h2 {
+  display: inline-block;
+}
+
+#items h3 {
+  margin-top: 0;
+}
+
+#items.show {
+  display: block;
+}
+
+
+#items.hide {
+  display: none;
+}

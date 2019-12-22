@@ -1,5 +1,6 @@
 import List from './List.js';
 import Storage from './Storage.js';
+import listBuilder from './helpers.js';
 
 class ListContainer {
   constructor({elementContainer, titleInstance, listItemContainerInstance}) {
@@ -61,16 +62,13 @@ class ListContainer {
     this.listSelectedId = null;
 
     this.renderContainer();
+    this.listItemContainerInstance.clearContainer();
   }
 
   selectList(id) {
     this.listSelectedId = id;
     this.storage.setSelectedList(id);
-    this.listItemContainerInstance.showItemsFromList(this.getList(this.listSelectedId));
-  }
-
-  deselectList() {
-
+    this.listItemContainerInstance.renderContainer(this.getList(this.listSelectedId));
   }
 
   createEventListeners() {
@@ -88,26 +86,16 @@ class ListContainer {
 <li data-li="list-row"><input type="radio" id="list-${item.getId()}" name="list" data-name="${item.getName()}" data-id="${item.getId()}" /><label>${item.getName()}</label></li>`
     };
 
-    let listElement = document.createElement('ul');
-    let listHTML = this.lists.length > 0
-      ? this.lists.reduce((acc, currValue) => {
-        return acc += buildHTML(currValue);
-      }, '')
-      : '';
-
-    listElement.innerHTML = listHTML;
-
-    return listElement;
+    return listBuilder({
+      fn: buildHTML,
+      list: this.lists
+    });
   }
 
   clickSelectedList() {
     if(this.listSelectedId) {
       this.elementContainer.querySelectorAll('[data-id="' + this.listSelectedId + '"]')[0].click();
     }
-  }
-
-  displayTitle() {
-    this.titleInstance.displayTitle(this.getListsLength())
   }
 
   renderContainer() {
@@ -117,7 +105,7 @@ class ListContainer {
 
     this.createEventListeners();
     this.clickSelectedList();
-    this.displayTitle()
+    this.titleInstance.displayTitle(this.getListsLength())
   }
 
 }
