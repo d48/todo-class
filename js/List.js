@@ -13,12 +13,6 @@ class List {
   getName() {
     return this.name;
   }
-
-  addItem(item) {
-  }
-
-  removeItem(id) {
-  }
 }
 
 export default List;
