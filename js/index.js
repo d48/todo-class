@@ -21,12 +21,17 @@ let listInstance = new ListContainer({
 // Buttons
 const newListField = document.querySelector('#new-list-field');
 const newListButton = document.querySelector('#new-list-button');
+const deleteListButton = document.querySelector('#delete-list-button');
 
 // List Functions
 const createNewList = (event) => {
   listInstance.addList({name: newListField.value});
   newListField.value = '';
   listInstance.renderContainer();
+};
+
+const deleteList = event => {
+  listInstance.removeSelectedList();
 };
 
 // Event Listeners
@@ -37,6 +42,7 @@ newListField.addEventListener('keyup', event => {
 });
 
 newListButton.addEventListener('click', createNewList);
+deleteListButton.addEventListener('click', deleteList);
 
 // Renders
 listInstance.renderContainer();

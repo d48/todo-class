@@ -8,9 +8,9 @@ class ListContainer {
     this.elementTitle = elementTitle;
     this.titleInstance = titleInstance;
     this.lists = [];
-    this.listSelected = null;
+    this.listSelectedId = null;
 
-    // check storage for any lists to create
+    // check for any lists to create that has been saved
     this.checkStorage();
   }
 
@@ -41,27 +41,21 @@ class ListContainer {
 
   addList(obj) {
     const listItem = new List(obj);
-    let appStorage = [];
-
-    // storage read
-    if (this.lists.length) {
-      appStorage = localStorage.getItem(this.id);
-      appStorage = JSON.parse(appStorage);
-    }
-
-    // prep for storage writing
-    appStorage.push(listItem);
-    localStorage.setItem(this.id, JSON.stringify(appStorage));
-
     this.lists.push(listItem);
+    localStorage.setItem(this.id, JSON.stringify(this.lists));
   }
 
-  removeList(id) {
-    this.lists = this.lists.filter(list => list.getId() !== id);
+  removeSelectedList() {
+    this.lists = this.lists.filter(list => list.getId() !== this.listSelectedId);
+    localStorage.setItem(this.id, JSON.stringify(this.lists));
+    localStorage.removeItem(this.idListSelected);
+    this.listSelectedId = null;
+
+    this.renderContainer();
   }
 
   selectList(id) {
-    this.listSelected = id;
+    this.listSelectedId = id;
     localStorage.setItem(this.idListSelected, id);
   }
 
@@ -94,8 +88,8 @@ class ListContainer {
   }
 
   clickSelectedList() {
-    if(this.listSelected) {
-      this.elementContainer.querySelectorAll('[data-id="' + this.listSelected + '"]')[0].click();
+    if(this.listSelectedId) {
+      this.elementContainer.querySelectorAll('[data-id="' + this.listSelectedId + '"]')[0].click();
     }
   }
 
