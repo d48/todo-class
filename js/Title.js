@@ -1,10 +1,11 @@
 class Title {
-  constructor({title}) {
+  constructor({element, title}) {
+    this.element = element;
     this.title = title;
   }
 
   displayTitle(num) {
-    return `${this.title}: ${num} lists`;
+    this.element.textContent = `${this.title}: ${num} lists`;
   }
 }
 

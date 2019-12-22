@@ -3,7 +3,7 @@ class List {
     this.name = name;
     this.selected = selected;
     this.id = id;
-    this.items= items;
+    this.items = items;
   }
 
   getId() {
@@ -12,6 +12,10 @@ class List {
 
   getName() {
     return this.name;
+  }
+
+  getItems() {
+    return this.items;
   }
 }
 

@@ -1,6 +1,7 @@
 /* ---------------------- classes ----------------------- */
 import Title from './Title.js';
 import ListContainer from './ListContainer.js';
+import ListItemContainer from './ListItemContainer.js';
 
 // APP
 
@@ -8,15 +9,24 @@ import ListContainer from './ListContainer.js';
 
 const elementListContainer = document.querySelector('#list');
 const elementTitle = document.querySelector('#page-title');
+const elementItemsContainer = document.querySelector('#items');
 
 let titleInstance = new Title({
+  element: elementTitle,
   title: "Ryan's Todo App"
 });
+
+let listItemContainerInstance = new ListItemContainer({
+  element: elementItemsContainer
+});
+
+
 let listInstance = new ListContainer({
   elementContainer: elementListContainer,
-  elementTitle: elementTitle,
-  titleInstance: titleInstance
+  titleInstance: titleInstance,
+  listItemContainerInstance: listItemContainerInstance
 });
+
 
 // Buttons
 const newListField = document.querySelector('#new-list-field');

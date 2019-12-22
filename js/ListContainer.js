@@ -2,12 +2,12 @@ import List from './List.js';
 import Storage from './Storage.js';
 
 class ListContainer {
-  constructor({elementContainer, elementTitle, titleInstance}) {
+  constructor({elementContainer, titleInstance, listItemContainerInstance}) {
     this.id = 'todo-app-lists'
     this.idListSelected = this.id + '-selected';
     this.elementContainer = elementContainer;
-    this.elementTitle = elementTitle;
     this.titleInstance = titleInstance;
+    this.listItemContainerInstance = listItemContainerInstance;
     this.lists = [];
     this.listSelectedId = null;
     this.storage = new Storage({
@@ -36,6 +36,10 @@ class ListContainer {
     }
   }
 
+  getList(id) {
+    return this.lists.find(list => list.getId() === id);
+  }
+
   getLists() {
     return this.lists;
   }
@@ -62,13 +66,17 @@ class ListContainer {
   selectList(id) {
     this.listSelectedId = id;
     this.storage.setSelectedList(id);
+    this.listItemContainerInstance.showItemsFromList(this.getList(this.listSelectedId));
+  }
+
+  deselectList() {
+
   }
 
   createEventListeners() {
     var self = this;
     this.elementContainer.querySelectorAll('[data-li="list-row"] input[type="radio"]').forEach(item => {
       item.addEventListener('click', event => {
-        console.log('id', event.target.dataset.id);
         self.selectList(event.target.dataset.id);
       });
     });
@@ -98,19 +106,20 @@ class ListContainer {
     }
   }
 
+  displayTitle() {
+    this.titleInstance.displayTitle(this.getListsLength())
+  }
+
   renderContainer() {
     // listInstance.removeListeners();
     this.elementContainer.removeChild(this.elementContainer.lastChild);
     this.elementContainer.appendChild(this.render());
-    // createListeners();
+
     this.createEventListeners();
     this.clickSelectedList();
     this.displayTitle()
   }
 
-  displayTitle() {
-    this.elementTitle.textContent = this.titleInstance.displayTitle(this.getListsLength())
-  }
 }
 
 export default ListContainer;

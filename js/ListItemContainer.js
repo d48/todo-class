@@ -1,15 +1,15 @@
 class ListItemContainer {
-  constructor({title}) {
-    this.title = title;
-
+  constructor({element}) {
+    this.element = element;
   }
 
-  setTitle(title) {
-    this.title = title;
+  showItemsFromList(list) {
+    this.displayTitle(list);
+    // render list
   }
 
-  displayTitle(num) {
-    return `${num} ${this.selectedList} items`;
+  displayTitle(list) {
+    this.element.querySelector('h2').textContent = `${list.getItems().length} ${list.getName()} items`;
   }
 }
 
