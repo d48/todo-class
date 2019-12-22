@@ -28,3 +28,8 @@ section, body > header {
 #items.hide {
   display: none;
 }
+
+#items input:checked + label {
+  color: red;
+  text-decoration: line-through;
+}
