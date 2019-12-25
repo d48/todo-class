@@ -1,10 +1,14 @@
 import ListItem from './ListItem.js';
 import listBuilder from './helpers.js';
+import Storage from './Storage.js';
 
 class ListItemContainer {
   constructor({element}) {
     this.element = element;
     this.items = [];
+    this.storage = new Storage({
+      idLists: null,
+      isListSelected: null});
 
     // check storage for saved items
     // this.checkStorage();
@@ -22,7 +26,6 @@ class ListItemContainer {
     }
   }
 
-  // todo: need to reference storage. As a singleton? via global?
   addItem(obj) {
     let newItem = new ListItem(obj);
     this.items.push(newItem);

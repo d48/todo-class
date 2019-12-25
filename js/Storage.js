@@ -1,7 +1,14 @@
 class Storage {
   constructor({idLists = '', idListSelected = ''}) {
+    var instance;
     this.idLists = idLists;
     this.idListSelected = idListSelected;
+
+    if (instance) {
+      return instance;
+    }
+
+    instance = this;
   }
 
   getLists() {
@@ -25,7 +32,7 @@ class Storage {
     localStorage.removeItem(this.idListSelected);
   }
 
-  setItems(items) {
+  setItems(id, items) {
     localStorage.setItem(id, JSON.stringify(items));
   }
 }

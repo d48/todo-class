@@ -47,9 +47,10 @@ const deleteList = event => {
 };
 
 const createNewItem = event => {
-  listItemContainerInstance.addItem({id: listInstance.getSelectedList().getId(), name: newItemField.value});
+  const selectedList = listInstance.getSelectedList();
+  listItemContainerInstance.addItem({id: selectedList.getId(), name: newItemField.value});
   newItemField.value = '';
-  listItemContainerInstance.renderContainer();
+  listItemContainerInstance.renderContainer(selectedList);
 }
 
 // Event Listeners
