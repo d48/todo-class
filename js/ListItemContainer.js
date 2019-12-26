@@ -10,30 +10,37 @@ class ListItemContainer {
       idLists: null,
       isListSelected: null
     });
+    this.list = null;
   }
 
   // checks for items in storage to restore
   checkStorage() {
-    this.items = [];
+    this.list.clearItems();
 
-    const items = this.storage.getItems(this.id);
+    const items = this.storage.getItems(this.list.getId()) || [];
 
     if (items) {
       items.forEach(item => {
         this.addItem(item);
       });
     }
+
+    // this.list.setItems(items);
+  }
+
+  setList(list) {
+    this.list = list;
   }
 
   addItem(obj) {
     let newItem = new ListItem(obj);
-    this.items.push(newItem);
-    this.storage.setItems(this.id, this.items);
+    this.list.addItem(newItem);
+    this.storage.setItems(this.list.getId(), this.list.getItems());
   }
 
-  displayTitle(list) {
-    this.element.querySelector('h2').textContent = `${list.getName()}`;
-    this.element.querySelector('h3').textContent = `${list.getItems().length} items`;
+  displayTitle() {
+    this.element.querySelector('h2').textContent = `${this.list.getName()}`;
+    this.element.querySelector('h3').textContent = `${this.list.getItems().length} items`;
   }
 
   clearContainer() {
@@ -44,6 +51,7 @@ class ListItemContainer {
 
   render() {
     this.checkStorage();
+    this.displayTitle();
 
     const buildHTML = (item) => {
       return `
@@ -52,16 +60,15 @@ class ListItemContainer {
 
     return listBuilder({
       fn: buildHTML,
-      list: this.items
+      list: this.list.getItems()
     });
+
   }
 
   renderContainer(list) {
-    this.id = list.getId();
     this.element.className = 'show';
     this.element.removeChild(this.element.lastChild);
     this.element.appendChild(this.render());
-    this.displayTitle(list);
   }
 }
 

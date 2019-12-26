@@ -17,6 +17,18 @@ class List {
   getItems() {
     return this.items;
   }
+
+  clearItems() {
+    this.items = [];
+  }
+
+  setItems(items) {
+    this.items = items;
+  }
+
+  addItem(item) {
+    this.items.push(item);
+  }
 }
 
 export default List;

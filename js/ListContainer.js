@@ -72,7 +72,10 @@ class ListContainer {
   selectList(id) {
     this.listSelectedId = id;
     this.storage.setSelectedList(id);
-    this.listItemContainerInstance.renderContainer(this.getList(this.listSelectedId));
+
+    const list = this.getSelectedList();
+    this.listItemContainerInstance.setList(list);
+    this.listItemContainerInstance.renderContainer();
   }
 
   createEventListeners() {
