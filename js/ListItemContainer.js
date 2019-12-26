@@ -8,21 +8,20 @@ class ListItemContainer {
     this.items = [];
     this.storage = new Storage({
       idLists: null,
-      isListSelected: null});
-
-    // check storage for saved items
-    // this.checkStorage();
+      isListSelected: null
+    });
   }
 
+  // checks for items in storage to restore
   checkStorage() {
+    this.items = [];
+
     const items = this.storage.getItems(this.id);
 
     if (items) {
-      items.forEeach(item => {
+      items.forEach(item => {
         this.addItem(item);
       });
-
-      this.storage.setItems(this.id, this.items);
     }
   }
 
@@ -44,6 +43,8 @@ class ListItemContainer {
   }
 
   render() {
+    this.checkStorage();
+
     const buildHTML = (item) => {
       return `
 <li><input type="checkbox" id="item-${item.getId()}" data-item-name="${item.getName()}" data-item-id="${item.getId()}"/><label>${item.getName()}</label></li>`

@@ -35,6 +35,11 @@ class Storage {
   setItems(id, items) {
     localStorage.setItem(id, JSON.stringify(items));
   }
+
+  getItems(id) {
+    const items = localStorage.getItem(id);
+    return JSON.parse(items);
+  }
 }
 
 export default Storage;
