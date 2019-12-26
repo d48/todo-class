@@ -29,7 +29,9 @@ class Storage {
   }
 
   clearSelectedList() {
+    const idOfListSelected = localStorage.getItem(this.idListSelected);
     localStorage.removeItem(this.idListSelected);
+    localStorage.removeItem(idOfListSelected);;
   }
 
   setItems(id, items) {
