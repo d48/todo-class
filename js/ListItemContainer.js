@@ -24,8 +24,6 @@ class ListItemContainer {
         this.addItem(item);
       });
     }
-
-    // this.list.setItems(items);
   }
 
   setList(list) {

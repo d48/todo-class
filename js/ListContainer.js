@@ -54,8 +54,8 @@ class ListContainer {
   }
 
   addList(obj) {
-    const listItem = new List(obj);
-    this.lists.push(listItem);
+    const list = new List(obj);
+    this.lists.push(list);
     this.storage.setLists(this.lists);
   }
 

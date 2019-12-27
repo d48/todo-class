@@ -1,5 +1,5 @@
 class List {
-  constructor({name, selected=false, id=new Date().toISOString(), items= []}) {
+  constructor({name, selected = false, id = new Date().toISOString(), items = []}) {
     this.name = name;
     this.selected = selected;
     this.id = id;
@@ -28,6 +28,7 @@ class List {
 
   addItem(item) {
     this.items.push(item);
+    // save items in list in storage
   }
 }
 
