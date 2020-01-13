@@ -1,8 +1,8 @@
 class ListItem {
-  constructor({ name, id = new Date().toISOString(), selected = false }) {
+  constructor({ name, id = new Date().toISOString(), completed = false }) {
     this.name = name;
     this.id = id;
-    this.selected = selected;
+    this.completed = completed;
   }
 
   getId() {

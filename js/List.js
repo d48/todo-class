@@ -1,9 +1,15 @@
+import Storage from './Storage.js';
+
 class List {
   constructor({name, selected = false, id = new Date().toISOString(), items = []}) {
     this.name = name;
     this.selected = selected;
     this.id = id;
     this.items = items;
+    this.storage = new Storage({
+      idLists: null,
+      isListSelected: null
+    });
   }
 
   getId() {
@@ -28,7 +34,7 @@ class List {
 
   addItem(item) {
     this.items.push(item);
-    // save items in list in storage
+    this.storage.setItems(this.getId(), this.getItems());
   }
 }
 

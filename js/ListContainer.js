@@ -29,7 +29,7 @@ class ListContainer {
           this.addList(item);
         });
 
-        let selectedList = this.storage.getSelectedList();
+        let selectedList = this.storage.getSelectedListId();
         if (selectedList) {
           this.selectList(selectedList);
         }

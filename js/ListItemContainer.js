@@ -33,6 +33,7 @@ class ListItemContainer {
   addItem(obj) {
     let newItem = new ListItem(obj);
     this.list.addItem(newItem);
+    // todo: determine if List class should interact with storage instead
     this.storage.setItems(this.list.getId(), this.list.getItems());
   }
 
