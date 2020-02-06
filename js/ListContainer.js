@@ -70,27 +70,30 @@ class ListContainer {
   }
 
   selectList(id) {
-    this.listSelectedId = id;
-    this.storage.setSelectedList(id);
+this.listSelectedId = id;
+this.storage.setSelectedList(id);
 
-    const list = this.getSelectedList();
-    this.listItemContainerInstance.setList(list);
-    this.listItemContainerInstance.renderContainer();
-  }
+const list = this.getSelectedList();
+this.listItemContainerInstance.setList(list);
+this.listItemContainerInstance.renderContainer();
+}
 
-  createEventListeners() {
-    var self = this;
-    this.elementContainer.querySelectorAll('[data-li="list-row"] input[type="radio"]').forEach(item => {
-      item.addEventListener('click', event => {
-        self.selectList(event.target.dataset.id);
-      });
-    });
-  }
+createEventListeners() {
+var self = this;
+this.elementContainer.querySelectorAll('[data-li="list-row"] input[type="radio"]').forEach(item => {
+item.addEventListener('click', event => {
+  self.selectList(event.target.dataset.id);
+});
+});
+}
 
-  render() {
-    const buildHTML = (item) => {
-      return `
-<li data-li="list-row"><input type="radio" id="list-${item.getId()}" name="list" data-name="${item.getName()}" data-id="${item.getId()}" /><label>${item.getName()}</label></li>`
+render() {
+const buildHTML = (item) => {
+const id = item.getId();
+const name  = item.getName();
+
+return `
+<li data-li="list-row"><input type="radio" id="list-${id}" name="list" data-name="${name}" data-id="${id}" /><label for="list-${id}">${name}</label></li>`
     };
 
     return listBuilder({

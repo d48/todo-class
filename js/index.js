@@ -48,7 +48,7 @@ const deleteList = event => {
 
 const createNewItem = event => {
   const selectedList = listInstance.getSelectedList();
-  listItemContainerInstance.addItem({id: selectedList.getId(), name: newItemField.value});
+  listItemContainerInstance.addItem({name: newItemField.value});
   newItemField.value = '';
   listItemContainerInstance.renderContainer(selectedList);
 }

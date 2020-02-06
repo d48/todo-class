@@ -53,8 +53,11 @@ class ListItemContainer {
     this.displayTitle();
 
     const buildHTML = (item) => {
+      const id = item.getId();
+      const name  = item.getName();
+
       return `
-<li><input type="checkbox" id="item-${item.getId()}" data-item-name="${item.getName()}" data-item-id="${item.getId()}"/><label>${item.getName()}</label></li>`
+<li><input type="checkbox" id="item-${id}" data-item-name="${name}" data-item-id="${id}" name="${id}"/><label for="item-${id}">${name}</label></li>`
     };
 
     return listBuilder({
