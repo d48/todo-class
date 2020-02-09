@@ -6,10 +6,7 @@ class List {
     this.selected = selected;
     this.id = id;
     this.items = items;
-    this.storage = new Storage({
-      idLists: null,
-      isListSelected: null
-    });
+    this.storage = new Storage();
   }
 
   getId() {
@@ -34,7 +31,7 @@ class List {
 
   addItem(item) {
     this.items.push(item);
-    this.storage.setItems(this.getId(), this.getItems());
+    this.storage.setItemsForList(this.getId(), this.getItems());
   }
 }
 

@@ -1,4 +1,5 @@
 import List from './List.js';
+import ListItem from './ListItem.js';
 import Storage from './Storage.js';
 import listBuilder from './helpers.js';
 
@@ -11,10 +12,7 @@ class ListContainer {
     this.listItemContainerInstance = listItemContainerInstance;
     this.lists = [];
     this.listSelectedId = null;
-    this.storage = new Storage({
-      idLists: this.id,
-      idListSelected: this.idListSelected
-    });
+    this.storage = new Storage();
 
     // check for any lists to create that has been saved
     this.checkStorage();
@@ -55,6 +53,8 @@ class ListContainer {
 
   addList(obj) {
     const list = new List(obj);
+    list.items = list.items.map(item => new ListItem(item));
+
     this.lists.push(list);
     this.storage.setLists(this.lists);
   }

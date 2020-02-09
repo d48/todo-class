@@ -6,20 +6,15 @@ class ListItemContainer {
   constructor({element}) {
     this.element = element;
     this.items = [];
-    this.storage = new Storage({
-      idLists: null,
-      isListSelected: null
-    });
+    this.storage = new Storage();
     this.list = null;
   }
 
   // checks for items in storage to restore
   checkStorage() {
-    this.list.clearItems();
+    this.items = this.storage.getItemsFromList(this.list.getId()) || [];
 
-    const items = this.storage.getItems(this.list.getId()) || [];
-
-    if (items) {
+    if (items.length) {
       items.forEach(item => {
         this.addItem(item);
       });
@@ -33,8 +28,7 @@ class ListItemContainer {
   addItem(obj) {
     let newItem = new ListItem(obj);
     this.list.addItem(newItem);
-    // todo: determine if List class should interact with storage instead
-    this.storage.setItems(this.list.getId(), this.list.getItems());
+    this.storage.setItemsForList(this.list.getId(), this.list.getItems());
   }
 
   displayTitle() {

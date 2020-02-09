@@ -1,14 +1,17 @@
+window.todoAppInstance;
+
 class Storage {
-  constructor({idLists = '', idListSelected = ''}) {
-    var instance;
-    this.idLists = idLists;
-    this.idListSelected = idListSelected;
+  constructor() {
+    this.idLists = 'todo-app-lists';
+    this.idListSelected = 'todo-app-lists-selected';
+
+    const instance = window.todoAppInstance;
 
     if (instance) {
       return instance;
     }
 
-    instance = this;
+    window.todoAppInstance = this;
   }
 
   getLists() {
@@ -26,7 +29,7 @@ class Storage {
 
   getSelectedList() {
     const lists = this.getLists();
-    return lists.filter(list => list.getId() === this.idListSelected);
+    return lists.filter(list => list.id === this.idListSelected);
   }
 
   getSelectedListId() {
@@ -43,9 +46,19 @@ class Storage {
     localStorage.removeItem(idOfListSelected);;
   }
 
-  setItems(id, items) {
-    localStorage.setItem(id, JSON.stringify(items));
-    // store items in list from main app list key
+  setItemsForList(id, items) {
+    // read lists
+    const lists = this.getLists();
+
+    // add items on filtered list
+    lists.map(item => {
+      if (item.id === id) {
+        item.items = items;
+      }
+    });
+
+    // write to storage
+    this.setLists(lists);
   }
 
   getItems(id) {
@@ -53,6 +66,10 @@ class Storage {
     return JSON.parse(items);
   }
 
+  getItemsFromList(id) {
+    const items = this.getSelectedList().items;
+    return items ? JSON.parse(items) : [];
+  }
 }
 
 export default Storage;
